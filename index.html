@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Perfect Tenses · ESL Grammar & Practice</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: linear-gradient(150deg, #2b3b4c 0%, #1c262f 100%);
+      font-family: 'Inter', 'Segoe UI', Roboto, system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.8rem;
+      margin: 0;
+    }
+    .app-shell {
+      max-width: 1000px;
+      width: 100%;
+      background: #fefaf5;
+      border-radius: 3.2rem;
+      box-shadow: 0 40px 70px rgba(0, 0, 0, 0.55), inset 0 1px 5px rgba(255, 255, 255, 0.7);
+      padding: 2.2rem 2.2rem 2.5rem;
+      border: 1px solid #ebccb2;
+    }
+    /* Header */
+    .main-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.8rem;
+    }
+    h1 {
+      font-weight: 650;
+      font-size: 2.1rem;
+      color: #2d3a44;
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    h1 span {
+      background: #edd7c0;
+      padding: 0.3rem 1.3rem;
+      border-radius: 2.5rem;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #4b3621;
+    }
+    .nav-buttons {
+      display: flex;
+      gap: 0.8rem;
+    }
+    .nav-btn {
+      background: white;
+      border: 2px solid #cfb59b;
+      padding: 0.7rem 1.7rem;
+      border-radius: 2.5rem;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #3e3629;
+      cursor: pointer;
+      transition: 0.2s;
+      background: #fdf5ed;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      letter-spacing: 0.3px;
+    }
+    .nav-btn.active {
+      background: #cdaa7b;
+      border-color: #8b5e3c;
+      color: #241e15;
+      box-shadow: 0 5px 12px rgba(160, 110, 50, 0.3);
+    }
+    .nav-btn:hover {
+      background: #ecdcca;
+      border-color: #a77b55;
+    }
+
+    /* Pages */
+    .page {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .page.active {
+      display: block;
+      opacity: 1;
+    }
+
+    /* RULES PAGE */
+    .rules-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 0.5rem;
+    }
+    .rule-card {
+      flex: 1 1 260px;
+      background: #ffffff;
+      border-radius: 2rem;
+      padding: 1.4rem 1.3rem;
+      box-shadow: 0 15px 25px rgba(0,0,0,0.06);
+      border: 1px solid #ecd9c7;
+    }
+    .rule-card h3 {
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: #4c3822;
+      border-left: 5px solid #cb9b6b;
+      padding-left: 0.9rem;
+      margin-bottom: 1.1rem;
+    }
+    .rule-item {
+      margin-bottom: 1.1rem;
+      font-size: 0.93rem;
+      color: #302921;
+    }
+    .rule-item strong {
+      color: #794f2d;
+      display: block;
+      margin-bottom: 0.2rem;
+      font-weight: 700;
+    }
+    .example {
+      background: #f7efe6;
+      padding: 0.3rem 0.9rem;
+      border-radius: 1.5rem;
+      display: inline-block;
+      font-style: italic;
+      margin-top: 0.2rem;
+      color: #3f3325;
+    }
+    .emoji-badge {
+      font-size: 1.2rem;
+      margin-right: 0.2rem;
+    }
+
+    /* EXERCISE PAGE - ONE BY ONE */
+    .exercise-card {
+      background: #fffbf7;
+      border-radius: 2.2rem;
+      padding: 2rem 2rem 1.8rem;
+      box-shadow: 0 20px 30px rgba(0,0,0,0.07);
+      border: 1px solid #edd7c0;
+      margin-top: 0.8rem;
+    }
+    .progress-indicator {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.8rem;
+      font-weight: 600;
+      color: #5c4a37;
+    }
+    .question-number {
+      background: #e6d6c4;
+      padding: 0.4rem 1.4rem;
+      border-radius: 2rem;
+      font-size: 1rem;
+    }
+    .category-tag {
+      background: #d9c2a6;
+      padding: 0.3rem 1.2rem;
+      border-radius: 1.5rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #37291c;
+    }
+    .prompt-display {
+      font-size: 1.6rem;
+      font-weight: 550;
+      margin: 1.8rem 0 1.8rem;
+      color: #2d241c;
+      line-height: 1.4;
+      background: #faf3ea;
+      padding: 1.2rem 1.5rem;
+      border-radius: 1.8rem;
+    }
+    .input-area {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .answer-input {
+      flex: 2;
+      min-width: 220px;
+      background: white;
+      border: 2px solid #d4b595;
+      border-radius: 2.5rem;
+      padding: 1rem 1.5rem;
+      font-size: 1.1rem;
+      outline: none;
+      transition: 0.2s;
+      font-family: inherit;
+    }
+    .answer-input:focus {
+      border-color: #b16d3c;
+      box-shadow: 0 0 0 4px rgba(185, 120, 60, 0.2);
+    }
+    .submit-one-btn {
+      background: #efe0cf;
+      border: none;
+      border-radius: 2.5rem;
+      padding: 1rem 2rem;
+      font-weight: 700;
+      background: #ddc7ae;
+      color: #2e2419;
+      cursor: pointer;
+      font-size: 1rem;
+      border: 1px solid #b3926d;
+      transition: all 0.2s;
+    }
+    .submit-one-btn:hover {
+      background: #caaa82;
+    }
+    .feedback-message {
+      font-weight: 600;
+      font-size: 1rem;
+      margin: 0.5rem 0 1.2rem;
+      min-height: 2.2rem;
+    }
+    .correct-msg { color: #1f6e43; }
+    .wrong-msg { color: #b13e3e; }
+    .nav-arrows {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 1.2rem;
+    }
+    .arrow-btn {
+      background: #f5ede3;
+      border: 2px solid #c1a086;
+      border-radius: 3rem;
+      padding: 0.7rem 1.7rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s;
+      color: #3d3226;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .arrow-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .arrow-btn:hover:not(:disabled) {
+      background: #e0cfb8;
+    }
+    .score-badge {
+      text-align: right;
+      font-weight: 700;
+      font-size: 1.1rem;
+      background: #f5e5d5;
+      display: inline-block;
+      padding: 0.4rem 1.5rem;
+      border-radius: 2rem;
+    }
+    hr {
+      border: 0.5px solid #e0cdb8;
+      margin: 1.2rem 0 0.5rem;
+    }
+    .small-note {
+      color: #6b5d4f;
+      font-size: 0.8rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<div class="app-shell">
+  <div class="main-header">
+    <h1>
+      📘 PERFECT TENSES
+      <span>ESL lab</span>
+    </h1>
+    <div class="nav-buttons">
+      <button id="rulesTabBtn" class="nav-btn active">📚 Rules</button>
+      <button id="exercisesTabBtn" class="nav-btn">✏️ Practice</button>
+    </div>
+  </div>
+
+  <!-- RULES PAGE -->
+  <div id="rulesPage" class="page active">
+    <div class="rules-grid">
+      <div class="rule-card">
+        <h3><span class="emoji-badge">⏳</span> Present Perfect</h3>
+        <div class="rule-item">
+          <strong>Simple</strong> have/has + past participle<br>
+          <span class="example">I have visited London.</span><br>
+          <small>Unfinished time, life experience, result now.</small>
+        </div>
+        <div class="rule-item">
+          <strong>Continuous</strong> have/has been + -ing<br>
+          <span class="example">She has been studying for hours.</span><br>
+          <small>Action started past, still continuing or just stopped.</small>
+        </div>
+      </div>
+      <div class="rule-card">
+        <h3><span class="emoji-badge">⏮️</span> Past Perfect</h3>
+        <div class="rule-item">
+          <strong>Simple</strong> had + past participle<br>
+          <span class="example">They had left before I arrived.</span><br>
+          <small>Action completed before another past moment.</small>
+        </div>
+        <div class="rule-item">
+          <strong>Continuous</strong> had been + -ing<br>
+          <span class="example">He had been working all day.</span><br>
+          <small>Duration before something in the past.</small>
+        </div>
+      </div>
+      <div class="rule-card">
+        <h3><span class="emoji-badge">🔮</span> Future Perfect</h3>
+        <div class="rule-item">
+          <strong>Simple</strong> will have + past participle<br>
+          <span class="example">By June, she will have graduated.</span><br>
+          <small>Completion before a future time.</small>
+        </div>
+        <div class="rule-item">
+          <strong>Continuous</strong> will have been + -ing<br>
+          <span class="example">Next year I will have been living here for a decade.</span><br>
+          <small>Duration up to a future point.</small>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:1.5rem; text-align:center; color:#5f4b36;">👉 Switch to <strong>Practice</strong> tab for one‑by‑one exercises.</div>
+  </div>
+
+  <!-- EXERCISES PAGE (one by one) -->
+  <div id="exercisesPage" class="page">
+    <div class="exercise-card">
+      <div class="progress-indicator">
+        <span class="question-number" id="questionCounter">1 / 12</span>
+        <span class="category-tag" id="categoryDisplay">Present Perfect Simple</span>
+      </div>
+      <div class="prompt-display" id="promptText">She ___ (finish) her homework.</div>
+      <div class="input-area">
+        <input type="text" id="answerInput" class="answer-input" placeholder="type perfect tense..." autocomplete="off" spellcheck="false">
+        <button id="submitOneBtn" class="submit-one-btn">✓ Check</button>
+      </div>
+      <div id="feedbackArea" class="feedback-message"></div>
+      <div class="nav-arrows">
+        <button id="prevBtn" class="arrow-btn" disabled>◀ Previous</button>
+        <span class="score-badge" id="liveScore">Score: 0/12</span>
+        <button id="nextBtn" class="arrow-btn">Next ▶</button>
+      </div>
+      <button id="resetExerciseBtn" style="margin-top:1.2rem; background:transparent; border:1px solid #cbad8a; border-radius:2rem; padding:0.5rem 1.5rem; cursor:pointer; font-weight:600;">↺ Reset all answers</button>
+    </div>
+    <hr>
+    <div class="small-note">Complete each sentence with present / past / future perfect (simple or continuous).</div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // ----- FULL EXERCISE DATASET (12 items) -----
+    const exercises = [
+      { id: 0, category: "Present Perfect Simple", prompt: "She ___ (finish) her homework.", correct: "has finished" },
+      { id: 1, category: "Present Perfect Simple", prompt: "I ___ (see) that movie twice.", correct: "have seen" },
+      { id: 2, category: "Present Perfect Continuous", prompt: "They ___ (wait) for over an hour.", correct: "have been waiting" },
+      { id: 3, category: "Present Perfect Continuous", prompt: "He ___ (study) English since 2020.", correct: "has been studying" },
+      { id: 4, category: "Past Perfect Simple", prompt: "She ___ (already / leave) when I called.", correct: "had already left" },
+      { id: 5, category: "Past Perfect Simple", prompt: "They ___ (not / eat) before they arrived.", correct: "had not eaten" },
+      { id: 6, category: "Past Perfect Continuous", prompt: "He was tired because he ___ (work) all day.", correct: "had been working" },
+      { id: 7, category: "Past Perfect Continuous", prompt: "The ground was wet. It ___ (rain).", correct: "had been raining" },
+      { id: 8, category: "Future Perfect Simple", prompt: "By next June, she ___ (graduate).", correct: "will have graduated" },
+      { id: 9, category: "Future Perfect Simple", prompt: "They ___ (complete) the project by Friday.", correct: "will have completed" },
+      { id: 10, category: "Future Perfect Continuous", prompt: "By 2027, I ___ (live) here for ten years.", correct: "will have been living" },
+      { id: 11, category: "Future Perfect Continuous", prompt: "Next month, she ___ (teach) for twenty years.", correct: "will have been teaching" }
+    ];
+
+    const TOTAL = exercises.length;
+    
+    // State
+    let currentIndex = 0;            // 0-based
+    let userAnswers = new Array(TOTAL).fill('');  // store answers
+    let answerStatus = new Array(TOTAL).fill(null); // 'correct', 'wrong', or null
+
+    // DOM Elements
+    const rulesPage = document.getElementById('rulesPage');
+    const exercisesPage = document.getElementById('exercisesPage');
+    const rulesTabBtn = document.getElementById('rulesTabBtn');
+    const exercisesTabBtn = document.getElementById('exercisesTabBtn');
+    
+    // Exercise elements
+    const questionCounter = document.getElementById('questionCounter');
+    const categoryDisplay = document.getElementById('categoryDisplay');
+    const promptText = document.getElementById('promptText');
+    const answerInput = document.getElementById('answerInput');
+    const submitOneBtn = document.getElementById('submitOneBtn');
+    const feedbackArea = document.getElementById('feedbackArea');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const liveScoreSpan = document.getElementById('liveScore');
+    const resetExerciseBtn = document.getElementById('resetExerciseBtn');
+
+    // Helper: normalize string
+    function normalize(str) {
+      return str.trim().replace(/\s+/g, ' ').toLowerCase();
+    }
+
+    // Check single answer
+    function checkAnswer(userAns, correctAns) {
+      return normalize(userAns) === normalize(correctAns);
+    }
+
+    // Update UI for current exercise (fill input, feedback, buttons, counter, category)
+    function renderCurrentExercise() {
+      if (!exercises.length) return;
+      const ex = exercises[currentIndex];
+      questionCounter.textContent = `${currentIndex + 1} / ${TOTAL}`;
+      categoryDisplay.textContent = ex.category;
+      promptText.textContent = ex.prompt;
+      
+      // Set input value from stored answers
+      answerInput.value = userAnswers[currentIndex] || '';
+      
+      // Show feedback based on stored status
+      const status = answerStatus[currentIndex];
+      feedbackArea.innerHTML = ''; 
+      feedbackArea.className = 'feedback-message';
+      if (status === 'correct') {
+        feedbackArea.textContent = '✓ Correct!';
+        feedbackArea.classList.add('correct-msg');
+      } else if (status === 'wrong') {
+        feedbackArea.textContent = `✗ Incorrect. Correct: "${ex.correct}"`;
+        feedbackArea.classList.add('wrong-msg');
+      } else {
+        feedbackArea.textContent = '';
+      }
+      
+      // Update navigation buttons
+      prevBtn.disabled = (currentIndex === 0);
+      nextBtn.disabled = (currentIndex === TOTAL - 1);
+      
+      // Update live score
+      updateScoreDisplay();
+    }
+
+    // Calculate total correct answers
+    function countCorrect() {
+      return answerStatus.filter(s => s === 'correct').length;
+    }
+
+    function updateScoreDisplay() {
+      const correctCount = countCorrect();
+      liveScoreSpan.textContent = `Score: ${correctCount}/${TOTAL}`;
+    }
+
+    // Process submission for current exercise
+    function submitCurrentAnswer() {
+      const userAnswer = answerInput.value;
+      const ex = exercises[currentIndex];
+      // Save answer
+      userAnswers[currentIndex] = userAnswer;
+      
+      const isCorrect = checkAnswer(userAnswer, ex.correct);
+      
+      // Update status
+      answerStatus[currentIndex] = isCorrect ? 'correct' : 'wrong';
+      
+      // Update feedback immediately
+      feedbackArea.innerHTML = '';
+      feedbackArea.className = 'feedback-message';
+      if (isCorrect) {
+        feedbackArea.textContent = '✓ Correct!';
+        feedbackArea.classList.add('correct-msg');
+      } else {
+        feedbackArea.textContent = `✗ Incorrect. Correct: "${ex.correct}"`;
+        feedbackArea.classList.add('wrong-msg');
+      }
+      
+      // Save answer again (already done)
+      updateScoreDisplay();
+    }
+
+    // Move to next/previous
+    function goToNext() {
+      if (currentIndex < TOTAL - 1) {
+        // Save current input before moving (but don't validate automatically)
+        userAnswers[currentIndex] = answerInput.value;
+        // If user hasn't checked, we keep previous status. If they typed, we could reset status? Better keep as is.
+        currentIndex++;
+        renderCurrentExercise();
+      }
+    }
+
+    function goToPrevious() {
+      if (currentIndex > 0) {
+        userAnswers[currentIndex] = answerInput.value;
+        currentIndex--;
+        renderCurrentExercise();
+      }
+    }
+
+    // Reset all answers and status
+    function resetAllProgress() {
+      userAnswers = new Array(TOTAL).fill('');
+      answerStatus = new Array(TOTAL).fill(null);
+      // Also clear input and feedback
+      if (answerInput) answerInput.value = '';
+      feedbackArea.innerHTML = '';
+      feedbackArea.className = 'feedback-message';
+      // Re-render current exercise
+      renderCurrentExercise();
+      updateScoreDisplay();
+    }
+
+    // Tab switching
+    function showRulesPage() {
+      rulesPage.classList.add('active');
+      exercisesPage.classList.remove('active');
+      rulesTabBtn.classList.add('active');
+      exercisesTabBtn.classList.remove('active');
+    }
+
+    function showExercisesPage() {
+      rulesPage.classList.remove('active');
+      exercisesPage.classList.add('active');
+      rulesTabBtn.classList.remove('active');
+      exercisesTabBtn.classList.add('active');
+      // Ensure UI reflects current state
+      renderCurrentExercise();
+    }
+
+    // Event Listeners
+    rulesTabBtn.addEventListener('click', showRulesPage);
+    exercisesTabBtn.addEventListener('click', showExercisesPage);
+
+    submitOneBtn.addEventListener('click', () => {
+      submitCurrentAnswer();
+    });
+
+    // Allow Enter key to submit
+    answerInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        submitCurrentAnswer();
+      }
+    });
+
+    prevBtn.addEventListener('click', goToPrevious);
+    nextBtn.addEventListener('click', goToNext);
+
+    resetExerciseBtn.addEventListener('click', () => {
+      resetAllProgress();
+    });
+
+    // Save current answer when navigating away from input (blur or before move)
+    answerInput.addEventListener('input', (e) => {
+      // store live but keep status unchanged until check
+      userAnswers[currentIndex] = e.target.value;
+      // if status was previously set, maybe clear it? We keep until resubmit.
+      // But we can optionally mark as unchecked if user changes answer? Better: keep old status but let them re-check.
+    });
+
+    // Initialize everything
+    function initialSetup() {
+      // Start on rules page active (already set via html class)
+      // But ensure exercises page hidden
+      rulesPage.classList.add('active');
+      exercisesPage.classList.remove('active');
+      rulesTabBtn.classList.add('active');
+      exercisesTabBtn.classList.remove('active');
+      
+      // Reset state
+      userAnswers = new Array(TOTAL).fill('');
+      answerStatus = new Array(TOTAL).fill(null);
+      currentIndex = 0;
+      renderCurrentExercise(); // pre-render for when they switch
+    }
+
+    initialSetup();
+
+    // Also update answer when user moves with arrows (store current input)
+    // We already save inside goToNext/goToPrevious, but also capture before leaving
+    window.addEventListener('beforeunload', () => {}); // noop
+  })();
+</script>
+</body>
+</html>
