@@ -1,531 +1,294 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Correct the Mistakes · Perfect Tenses ESL</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      background: linear-gradient(145deg, #263445 0%, #121c26 100%);
-      font-family: 'Inter', 'Segoe UI', Roboto, system-ui, sans-serif;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 1.8rem;
-    }
-    .app-container {
-      max-width: 980px;
-      width: 100%;
-      background: #fdf8f2;
-      border-radius: 3rem;
-      box-shadow: 0 40px 65px rgba(0,0,0,0.5), inset 0 2px 6px rgba(255,255,255,0.6);
-      padding: 2.2rem 2.2rem 2.6rem;
-      border: 1px solid #e7cfb8;
-    }
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-    h1 {
-      font-weight: 650;
-      font-size: 2rem;
-      color: #2e3b46;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-    h1 span {
-      background: #eedbcb;
-      padding: 0.3rem 1.4rem;
-      border-radius: 2.5rem;
-      font-size: 1rem;
-      font-weight: 700;
-      color: #4c3622;
-    }
-    .tab-row {
-      display: flex;
-      gap: 0.8rem;
-    }
-    .tab-btn {
-      background: #ffffff;
-      border: 2px solid #cbb295;
-      padding: 0.7rem 1.6rem;
-      border-radius: 2.5rem;
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: #3e3528;
-      cursor: pointer;
-      transition: 0.2s;
-      background: #faf3ea;
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-    }
-    .tab-btn.active {
-      background: #d2b089;
-      border-color: #8a5f3f;
-      color: #231d15;
-      box-shadow: 0 6px 14px rgba(160, 110, 50, 0.3);
-    }
-    .tab-btn:hover {
-      background: #eddcc9;
-    }
-    .page {
-      display: none;
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-    .page.active {
-      display: block;
-      opacity: 1;
-    }
-    /* RULES */
-    .rules-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-    }
-    .rule-card {
-      flex: 1 1 260px;
-      background: white;
-      border-radius: 2rem;
-      padding: 1.4rem;
-      box-shadow: 0 12px 24px rgba(0,0,0,0.05);
-      border: 1px solid #edd7c3;
-    }
-    .rule-card h3 {
-      font-weight: 700;
-      color: #4d3823;
-      border-left: 5px solid #c49362;
-      padding-left: 0.9rem;
-      margin-bottom: 1rem;
-    }
-    .rule-item {
-      margin-bottom: 1rem;
-      font-size: 0.93rem;
-    }
-    .rule-item strong {
-      color: #6b4427;
-    }
-    .example {
-      background: #f5ede3;
-      border-radius: 1.5rem;
-      padding: 0.25rem 1rem;
-      display: inline-block;
-      font-style: italic;
-      margin-top: 0.2rem;
-    }
-    /* MISTAKE EXERCISE CARD */
-    .mistake-card {
-      background: #fffbf5;
-      border-radius: 2.2rem;
-      padding: 2rem 2rem 1.8rem;
-      box-shadow: 0 20px 30px rgba(0,0,0,0.06);
-      border: 1px solid #eed9c4;
-    }
-    .progress-row {
-      display: flex;
-      justify-content: space-between;
-      font-weight: 600;
-      color: #4f3e2f;
-      margin-bottom: 1.8rem;
-    }
-    .badge {
-      background: #e5d3bf;
-      padding: 0.35rem 1.3rem;
-      border-radius: 2rem;
-      font-size: 0.9rem;
-    }
-    .sentence-box {
-      background: #f9f2e9;
-      padding: 1.3rem 1.6rem;
-      border-radius: 1.8rem;
-      font-size: 1.4rem;
-      font-weight: 500;
-      margin: 1.5rem 0;
-      color: #2e251e;
-      line-height: 1.5;
-    }
-    .mistake-highlight {
-      background: #ffdfc2;
-      padding: 0.15rem 0.5rem;
-      border-radius: 0.7rem;
-      font-weight: 700;
-      color: #a13e1f;
-    }
-    .input-group {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 1rem;
-      margin: 1.8rem 0 1.2rem;
-    }
-    .correction-input {
-      flex: 2;
-      min-width: 220px;
-      border: 2px solid #dbbc9b;
-      border-radius: 2.5rem;
-      padding: 1rem 1.5rem;
-      font-size: 1.1rem;
-      outline: none;
-      background: white;
-      font-family: inherit;
-    }
-    .correction-input:focus {
-      border-color: #b46f3c;
-      box-shadow: 0 0 0 4px rgba(185, 120, 60, 0.2);
-    }
-    .check-btn {
-      background: #e3d0ba;
-      border: 1px solid #af8b6c;
-      padding: 1rem 2rem;
-      border-radius: 2.5rem;
-      font-weight: 700;
-      background: #ddc5aa;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .check-btn:hover {
-      background: #caa77e;
-    }
-    .feedback-msg {
-      font-weight: 600;
-      min-height: 2rem;
-      margin: 0.3rem 0 1.2rem;
-    }
-    .correct-fb { color: #1f6e43; }
-    .wrong-fb { color: #b13e3e; }
-    .nav-arrows {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 1.2rem;
-    }
-    .arrow-btn {
-      background: #f3e9dd;
-      border: 2px solid #c2a386;
-      border-radius: 3rem;
-      padding: 0.7rem 1.7rem;
-      font-weight: 700;
-      cursor: pointer;
-    }
-    .arrow-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-    .score-pill {
-      font-weight: 700;
-      background: #f5e4d2;
-      padding: 0.4rem 1.5rem;
-      border-radius: 2rem;
-    }
-    .reset-small {
-      background: transparent;
-      border: 1px solid #cbad89;
-      border-radius: 2rem;
-      padding: 0.5rem 1.5rem;
-      margin-top: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-    }
-    hr {
-      border: 0.5px solid #e2cdb5;
-      margin: 1.2rem 0 0.6rem;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Algebra va Sonlar Nazariyasi · 50 savol</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: #0d0e12;
+            color: #f0f2f6;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 16px;
+        }
+        .quiz-container {
+            background: #161822;
+            border: 1px solid #26293b;
+            border-radius: 18px;
+            padding: 28px 32px;
+            width: 100%;
+            max-width: 820px;
+            box-shadow: 0 24px 48px rgba(0,0,0,0.5);
+            max-height: 98vh;
+            overflow-y: auto;
+        }
+        .quiz-container::-webkit-scrollbar { width: 4px; }
+        .quiz-container::-webkit-scrollbar-track { background: #161822; }
+        .quiz-container::-webkit-scrollbar-thumb { background: #2e334c; border-radius: 10px; }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .progress-bar {
+            font-size: 0.78rem;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+        .score-display { color: #10b981; font-weight: 600; }
+        .section-badge {
+            display: inline-block;
+            background: #1f2a3f;
+            padding: 3px 16px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            color: #8db0e0;
+            letter-spacing: 0.4px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 500;
+            line-height: 1.6;
+            margin-bottom: 22px;
+            color: #f3f5f9;
+        }
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+        .option-btn {
+            background: transparent;
+            border: 1px solid #2e334c;
+            color: #e8ecf5;
+            padding: 12px 16px;
+            border-radius: 10px;
+            text-align: left;
+            font-size: 0.92rem;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s, color 0.2s;
+            width: 100%;
+            line-height: 1.5;
+        }
+        .option-btn:hover:not(:disabled) {
+            background: #1f2235;
+            border-color: #6a7fa0;
+        }
+        .option-btn.correct {
+            background: rgba(16,185,129,0.16) !important;
+            border-color: #10b981 !important;
+            color: #34d399;
+            font-weight: 500;
+        }
+        .option-btn.incorrect {
+            background: rgba(239,68,68,0.16) !important;
+            border-color: #ef4444 !important;
+            color: #f87171;
+        }
+        .option-btn.show-correct {
+            background: rgba(16,185,129,0.16) !important;
+            border-color: #10b981 !important;
+            color: #34d399;
+            font-weight: 500;
+        }
+        .option-btn.disabled { pointer-events: none; opacity: 0.8; }
+        .option-btn.correct.disabled { opacity: 1; }
+        .option-btn.show-correct.disabled { opacity: 1; }
+        .next-btn-container {
+            margin-top: 22px;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .next-btn {
+            background: #f0f2f6;
+            color: #0d0e12;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.92rem;
+            font-family: 'Inter', sans-serif;
+            transition: opacity 0.2s, transform 0.1s;
+        }
+        .next-btn:hover { opacity: 0.85; transform: scale(1.02); }
+        .next-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+        .score-screen { text-align: center; padding: 30px 0; }
+        .score-screen h2 { font-size: 2.2rem; margin-bottom: 8px; }
+        .final-score { font-size: 1.2rem; color: #9ca3af; margin-bottom: 30px; }
+        .final-score span { color: #10b981; font-weight: 700; font-size: 1.8rem; }
+        .restart-btn {
+            background: #f0f2f6;
+            color: #0d0e12;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: opacity 0.2s;
+        }
+        .restart-btn:hover { opacity: 0.85; }
+        @media (max-width: 600px) {
+            .quiz-container { padding: 16px; }
+            .question-text { font-size: 1.05rem; }
+            .option-btn { font-size: 0.85rem; padding: 10px 12px; }
+        }
+    </style>
 </head>
 <body>
-<div class="app-container">
-  <div class="header">
-    <h1>❌🔍 CORRECT THE MISTAKE <span>PERFECT TENSES</span></h1>
-    <div class="tab-row">
-      <button id="rulesTab" class="tab-btn active">📘 Rules</button>
-      <button id="practiceTab" class="tab-btn">✏️ Practice</button>
+    <div class="quiz-container" id="quiz">
+        <div class="top-bar">
+            <div class="progress-bar" id="progress">Savol 1 / 50</div>
+            <div class="progress-bar score-display" id="scoreDisplay">✅ 0</div>
+        </div>
+        <div class="section-badge" id="sectionBadge">Algebra va Sonlar Nazariyasi</div>
+        <div class="question-text" id="question"></div>
+        <div class="options-container" id="options"></div>
+        <div class="next-btn-container">
+            <button class="next-btn" id="nextBtn" disabled>Keyingi →</button>
+        </div>
     </div>
-  </div>
 
-  <!-- RULES PAGE -->
-  <div id="rulesPage" class="page active">
-    <div class="rules-grid">
-      <div class="rule-card">
-        <h3>⏳ Present Perfect</h3>
-        <div class="rule-item"><strong>Simple:</strong> have/has + past participle <span class="example">I have eaten.</span></div>
-        <div class="rule-item"><strong>Continuous:</strong> have/has been + -ing <span class="example">She has been reading.</span></div>
-      </div>
-      <div class="rule-card">
-        <h3>⏮️ Past Perfect</h3>
-        <div class="rule-item"><strong>Simple:</strong> had + past participle <span class="example">They had left.</span></div>
-        <div class="rule-item"><strong>Continuous:</strong> had been + -ing <span class="example">He had been waiting.</span></div>
-      </div>
-      <div class="rule-card">
-        <h3>🔮 Future Perfect</h3>
-        <div class="rule-item"><strong>Simple:</strong> will have + past participle <span class="example">She will have finished.</span></div>
-        <div class="rule-item"><strong>Continuous:</strong> will have been + -ing <span class="example">I will have been working.</span></div>
-      </div>
-    </div>
-    <p style="margin-top:1.5rem; color:#5b4a38; text-align:center;">👉 Each sentence contains a <strong>mistake</strong>. Write the corrected perfect tense.</p>
-  </div>
+    <script>
+        const QUIZ_DATA = [
+            { q: "Faqat ikkita turli natural bo'luvchilarga ega bo'lgan natural son ... deyiladi.", opts: ["Tub son", "Murakkab son", "Toq son", "Butun son"], correct: 0 },
+            { q: "f(x) = x⁵ - 8x³ + 24x² - 24x + 16 ko'phadning ratsional ildizi?", opts: ["4", "3", "5", "2"], correct: 0 },
+            { q: "n³ - n ifoda qaysi natural songa qoldiqsiz bo'linadi?", opts: ["6", "5", "8", "9"], correct: 0 },
+            { q: "Quyidagi sonlardan qaysi biri 36 ga qoldiqsiz bo'linmaydi?", opts: ["4782", "8244", "2484", "2016"], correct: 0 },
+            { q: "3*470 yozuvdagi * ni shunday raqam bilan almashtiringki, hosil bo'lgan son 45 ga qoldiqsiz bo'linsin.", opts: ["4", "0", "5", "6"], correct: 0 },
+            { q: "a = bq + r tenglikda qoldiqli bo'lish sharti?", opts: ["0 ≤ r < |b|", "0 < r < |b|", "0 ≤ r ≤ |b|", "0 < r ≤ |b|"], correct: 0 },
+            { q: "35 ta natural sonni ketma-ket yozish natijasida 123...3435 sonini 25 ga bo'lish qoldig'i?", opts: ["10", "11", "12", "9"], correct: 0 },
+            { q: "a va b natural sonlar qanday shartda o'zaro tub sonlar deyiladi?", opts: ["EKUB(a,b) = 1", "EKUK(a,b) = ab", "a = b", "a + b = 1"], correct: 0 },
+            { q: "Natural bo'luvchilar soni ikkitadan ortiq bo'lgan natural son ... deyiladi.", opts: ["Murakkab", "Tub son", "Toq son", "Qo'shma"], correct: 0 },
+            { q: "Faqat ikkita natural bo'luvchiga ega bo'lgan natural son ... deyiladi.", opts: ["Tub son", "Murakkab son", "Toq son", "Qo'shma son"], correct: 0 },
+            { q: "150,151,152,153,154,155,156,157,158,159 dan tub sonlar?", opts: ["151,157", "152,157", "155,151", "151,159"], correct: 0 },
+            { q: "1321 soni tub yoki murakkab?", opts: ["Tub son", "Murakkab son", "Toq son", "Do'st son"], correct: 0 },
+            { q: "1321 soni tub yoki murakkab ekanligini aniqlashda qaysi oxirgi tub songacha bo'lishni to'xtatamiz?", opts: ["31", "37", "39", "41"], correct: 0 },
+            { q: "190,191,192,193,194,195,196,197,198,199,200 dan tub sonlar?", opts: ["191,193,197,199", "191,193,195,199", "191,192,193,197", "193,197,198,199"], correct: 0 },
+            { q: "180,181,182,183 dan tub son?", opts: ["181", "182", "183", "180"], correct: 0 },
+            { q: "1 dan n gacha bo'lgan sonlar orasidagi tub sonlarni aniqlash usuli?", opts: ["Eratosfen g'alviri", "Evklid g'alviri", "Eyler usuli", "Ferma g'alviri"], correct: 0 },
+            { q: "594 va 378 ning umumiy bo'luvchilari nechta?", opts: ["8", "9", "7", "6"], correct: 0 },
+            { q: "6 ga karrali ikki xonali natural sonlar nechta?", opts: ["15", "13", "11", "12"], correct: 0 },
+            { q: "24 sonining natural bo'luvchilari yig'indisi?", opts: ["60", "48", "36", "24"], correct: 0 },
+            { q: "24 soni bilan o'zaro tub va undan kichik natural sonlar nechta?", opts: ["8", "12", "16", "6"], correct: 0 },
+            { q: "23! ni tub ko'paytuvchilarga yoyilmasida 2 ning darajasi?", opts: ["19", "20", "18", "24"], correct: 0 },
+            { q: "23! ni tub ko'paytuvchilarga yoyilmasida 3 ning darajasi?", opts: ["9", "8", "6", "10"], correct: 0 },
+            { q: "23! ni tub ko'paytuvchilarga yoyilmasida 5 ning darajasi?", opts: ["4", "3", "2", "5"], correct: 0 },
+            { q: "15 va 25 sonlarining EKUKining natural bo'luvchilari nechta?", opts: ["6", "7", "8", "5"], correct: 0 },
+            { q: "21 va 35 sonlarining EKUKI bilan EKUBI yig'indisi?", opts: ["112", "110", "108", "124"], correct: 0 },
+            { q: "EKUB(a,b)·EKUK(a,b) = ?", opts: ["ab", "a+b", "a-b", "a/b"], correct: 0 },
+            { q: "680, 714, 748 sonlarining EKUBini toping.", opts: ["34", "32", "36", "44"], correct: 0 },
+            { q: "f(x) = x⁴ - 64x³ + 37x - 31 ko'phad darajasi?", opts: ["4", "7", "3", "2"], correct: 0 },
+            { q: "i² = -1 bo'ladigan kompleks son?", opts: ["z = i", "z = -i", "z = 1", "z = -1"], correct: 0 },
+            { q: "z = 1 + i sonining trigonometrik shakli?", opts: ["√2(cos π/4 + i sin π/4)", "√2(cos π/4 - i sin π/4)", "cos π/4 + i sin π/4", "2(cos π/4 + i sin π/4)"], correct: 0 },
+            { q: "z = 1 + i uchun z¹⁰ ni hisoblang:", opts: ["32i", "32", "-32i", "-32"], correct: 0 },
+            { q: "|1 + i| modulni hisoblang:", opts: ["√2", "1", "2", "√3"], correct: 0 },
+            { q: "Muavr formulasiga ko'ra (cos φ + i sin φ)ⁿ = ?", opts: ["cos nφ + i sin nφ", "cos φ + i sin φ", "n cos φ + i n sin φ", "cos φ/n + i sin φ/n"], correct: 0 },
+            { q: "f(x) = x² + 1 ko'phad qaysi maydonda keltiriladi?", opts: ["C", "Q", "R", "Z"], correct: 0 },
+            { q: "f(x) = (x-1)³(x-9) ko'phad uchun karrali ildiz qaysi?", opts: ["1", "9", "3", "0"], correct: 0 },
+            { q: "Evklid algoritmi natijasida nimani aniqlash mumkin?", opts: ["Ikki ko'phadning EKUBini", "Ikki ko'phadning ko'paytmasini", "Ikki ko'phadning bo'linmasini", "Ikki ko'phadning EKUKini"], correct: 0 },
+            { q: "f(x) = (x-1)(x-9), g(x) = (x-1)²(x-9) ko'phadlar EKUBi?", opts: ["(x-1)(x-9)", "(x-1)³(x-9)", "(x-1)³(x-9)²", "(x-1)²(x-9)"], correct: 0 },
+            { q: "f(x) = x² + 16 ko'phad qaysi maydonda keltiriladi?", opts: ["C", "Q", "R", "Z"], correct: 0 },
+            { q: "Ko'phadlarni ko'paytirish kommutativmi?", opts: ["Kommutativ", "Nokommutativ", "Qisman kommutativ", "Qisman nokommutativ"], correct: 0 },
+            { q: "(1+i)(1-i) kompleks sonlar ko'paytmasi?", opts: ["2", "0", "2i", "-2i"], correct: 0 },
+            { q: "f(x) = -3x² + x + 5 ko'phadni x-2 ga bo'lganda qoldiq?", opts: ["-5", "-3", "-6", "-4"], correct: 0 },
+            { q: "f(x) = -3x² + x + 5 ko'phadni x-2 ga bo'lganda bo'linma?", opts: ["-3x-5", "3x-5", "-3x+5", "3x+5"], correct: 0 },
+            { q: "f(x) = x² + x + 5 ko'phad ildizlari yig'indisi?", opts: ["-1", "-2", "-3", "-4"], correct: 0 },
+            { q: "f(x) = x² + x + 5 ko'phad ildizlari ko'paytmasi?", opts: ["5", "1", "-1", "-5"], correct: 0 },
+            { q: "|2+3i| modulni hisoblang:", opts: ["√13", "5", "√5", "13"], correct: 0 },
+            { q: "Bir o'zgaruvchili ko'phadlarni qo'shish kommutativmi?", opts: ["Kommutativ bo'ladi", "Kommutativ bo'lmaydi", "Ba'zan kommutativ bo'ladi", "Agar ko'phadlar teng bo'lsa"], correct: 0 },
+            { q: "Bir o'zgaruvchili ko'phadlarni qo'shish assosiativmi?", opts: ["Assosiativ bo'ladi", "Assosiativ bo'lmaydi", "Ba'zan assosiativ bo'ladi", "Agar ko'phadlar teng bo'lsa"], correct: 0 },
+            { q: "Bir o'zgaruvchili ko'phadlarni ko'paytirish assosiativmi?", opts: ["Assosiativ bo'ladi", "Assosiativ bo'lmaydi", "Ba'zan assosiativ bo'ladi", "Agar ko'phadlar teng bo'lsa"], correct: 0 },
+            { q: "Bir o'zgaruvchili ko'phadlarni ko'paytirish kommutativmi?", opts: ["Kommutativ bo'ladi", "Kommutativ bo'lmaydi", "Ba'zan kommutativ bo'ladi", "Agar ko'phadlar teng bo'lsa"], correct: 0 },
+            { q: "Qachon ko'phad nol ko'phad deyiladi?", opts: ["Barcha koeffisiyentlari nolga teng bo'lsa", "Barcha darajalari nolga teng bo'lsa", "Yuqori hadi nolga teng bo'lsa", "Barcha koeffisiyentlari teng bo'lsa"], correct: 0 }
+        ];
 
-  <!-- PRACTICE PAGE (mistake correction) -->
-  <div id="practicePage" class="page">
-    <div class="mistake-card">
-      <div class="progress-row">
-        <span class="badge" id="questionCounter">1 / 12</span>
-        <span class="badge" id="tenseCategory">Present Perfect Simple</span>
-      </div>
-      <div class="sentence-box" id="mistakeSentence">
-        She <span class="mistake-highlight">have finished</span> her homework.
-      </div>
-      <div class="input-group">
-        <input type="text" id="correctionInput" class="correction-input" placeholder="Write the correct form..." autocomplete="off">
-        <button id="checkMistakeBtn" class="check-btn">✓ Check</button>
-      </div>
-      <div id="feedbackArea" class="feedback-msg"></div>
-      <div class="nav-arrows">
-        <button id="prevMistakeBtn" class="arrow-btn" disabled>◀ Previous</button>
-        <span class="score-pill" id="scoreDisplay">Score: 0/12</span>
-        <button id="nextMistakeBtn" class="arrow-btn">Next ▶</button>
-      </div>
-      <button id="resetMistakesBtn" class="reset-small">↺ Reset all</button>
-    </div>
-    <hr>
-    <div style="color:#695e52; font-size:0.85rem; text-align:center;">Find and correct the perfect tense mistake in each sentence.</div>
-  </div>
-</div>
+        function shuffle(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
 
-<script>
-  (function() {
-    // ----- MISTAKE DATASET : each item has wrongSentence (with highlight) and correctAnswer -----
-    const mistakes = [
-      { 
-        id: 0, 
-        category: "Present Perfect Simple", 
-        wrongHtml: 'She <span class="mistake-highlight">have finished</span> her homework.', 
-        correct: "has finished" 
-      },
-      { 
-        id: 1, 
-        category: "Present Perfect Simple", 
-        wrongHtml: 'I <span class="mistake-highlight">has seen</span> that movie twice.', 
-        correct: "have seen" 
-      },
-      { 
-        id: 2, 
-        category: "Present Perfect Continuous", 
-        wrongHtml: 'They <span class="mistake-highlight">have wait</span> for over an hour.', 
-        correct: "have been waiting" 
-      },
-      { 
-        id: 3, 
-        category: "Present Perfect Continuous", 
-        wrongHtml: 'He <span class="mistake-highlight">has been study</span> English since 2020.', 
-        correct: "has been studying" 
-      },
-      { 
-        id: 4, 
-        category: "Past Perfect Simple", 
-        wrongHtml: 'She <span class="mistake-highlight">has already left</span> when I called.', 
-        correct: "had already left" 
-      },
-      { 
-        id: 5, 
-        category: "Past Perfect Simple", 
-        wrongHtml: 'They <span class="mistake-highlight">didn't eaten</span> before they arrived.', 
-        correct: "had not eaten" 
-      },
-      { 
-        id: 6, 
-        category: "Past Perfect Continuous", 
-        wrongHtml: 'He was tired because he <span class="mistake-highlight">had been work</span> all day.', 
-        correct: "had been working" 
-      },
-      { 
-        id: 7, 
-        category: "Past Perfect Continuous", 
-        wrongHtml: 'The ground was wet. It <span class="mistake-highlight">had been rain</span>.', 
-        correct: "had been raining" 
-      },
-      { 
-        id: 8, 
-        category: "Future Perfect Simple", 
-        wrongHtml: 'By next June, she <span class="mistake-highlight">will has graduated</span>.', 
-        correct: "will have graduated" 
-      },
-      { 
-        id: 9, 
-        category: "Future Perfect Simple", 
-        wrongHtml: 'They <span class="mistake-highlight">will have complete</span> the project by Friday.', 
-        correct: "will have completed" 
-      },
-      { 
-        id: 10, 
-        category: "Future Perfect Continuous", 
-        wrongHtml: 'By 2027, I <span class="mistake-highlight">will have been live</span> here for ten years.', 
-        correct: "will have been living" 
-      },
-      { 
-        id: 11, 
-        category: "Future Perfect Continuous", 
-        wrongHtml: 'Next month, she <span class="mistake-highlight">will has been teaching</span> for twenty years.', 
-        correct: "will have been teaching" 
-      }
-    ];
+        let questions = shuffle([...QUIZ_DATA]);
+        let current = 0, correct = 0, answered = false;
 
-    const TOTAL = mistakes.length;
-    let currentIdx = 0;
-    let userCorrections = new Array(TOTAL).fill('');
-    let statuses = new Array(TOTAL).fill(null); // 'correct', 'wrong', null
+        const quizEl = document.getElementById('quiz');
+        const progressEl = document.getElementById('progress');
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        const sectionBadge = document.getElementById('sectionBadge');
+        const questionEl = document.getElementById('question');
+        const optionsEl = document.getElementById('options');
+        const nextBtn = document.getElementById('nextBtn');
 
-    // DOM elements
-    const rulesPage = document.getElementById('rulesPage');
-    const practicePage = document.getElementById('practicePage');
-    const rulesTab = document.getElementById('rulesTab');
-    const practiceTab = document.getElementById('practiceTab');
-    
-    const questionCounter = document.getElementById('questionCounter');
-    const tenseCategory = document.getElementById('tenseCategory');
-    const mistakeSentenceDiv = document.getElementById('mistakeSentence');
-    const correctionInput = document.getElementById('correctionInput');
-    const checkBtn = document.getElementById('checkMistakeBtn');
-    const feedbackArea = document.getElementById('feedbackArea');
-    const prevBtn = document.getElementById('prevMistakeBtn');
-    const nextBtn = document.getElementById('nextMistakeBtn');
-    const scoreDisplay = document.getElementById('scoreDisplay');
-    const resetBtn = document.getElementById('resetMistakesBtn');
+        function render() {
+            if (current >= questions.length) { showScore(); return; }
+            const q = questions[current];
+            progressEl.textContent = `Savol ${current+1} / ${questions.length}`;
+            scoreDisplay.textContent = `✅ ${correct}`;
+            sectionBadge.textContent = "Algebra va Sonlar Nazariyasi";
+            questionEl.textContent = q.q;
+            optionsEl.innerHTML = '';
+            const opts = q.opts.map((t, i) => ({ text: t, isCorrect: i === q.correct }));
+            shuffle(opts);
+            opts.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = opt.text;
+                btn.dataset.correct = opt.isCorrect;
+                btn.addEventListener('click', () => handleClick(btn, opt.isCorrect));
+                optionsEl.appendChild(btn);
+            });
+            nextBtn.disabled = true;
+            answered = false;
+            nextBtn.textContent = current === questions.length - 1 ? '🏁 Yakunlash' : 'Keyingi →';
+        }
 
-    function normalize(str) {
-      return str.trim().replace(/\s+/g, ' ').toLowerCase();
-    }
+        function handleClick(btn, isCorrect) {
+            if (answered) return;
+            answered = true;
+            const all = optionsEl.querySelectorAll('.option-btn');
+            all.forEach(b => b.classList.add('disabled'));
+            all.forEach(b => { if (b.dataset.correct === 'true') b.classList.add('show-correct'); });
+            if (isCorrect) { btn.classList.add('correct'); correct++; } else { btn.classList.add('incorrect'); }
+            nextBtn.disabled = false;
+        }
 
-    function countCorrect() {
-      return statuses.filter(s => s === 'correct').length;
-    }
+        function nextQuestion() { if (!answered) return; current++; render(); }
 
-    function updateScore() {
-      scoreDisplay.textContent = `Score: ${countCorrect()}/${TOTAL}`;
-    }
+        function showScore() {
+            const pct = Math.round((correct / questions.length) * 100);
+            const emoji = pct >= 80 ? '🌟' : pct >= 60 ? '💪' : pct >= 40 ? '📚' : '😢';
+            quizEl.innerHTML = `
+                <div class="score-screen">
+                    <h2>${emoji} Test yakunlandi!</h2>
+                    <div class="final-score">
+                        To‘g‘ri javoblar: <span>${correct}</span> / ${questions.length}
+                        <br><span style="font-size:1rem;color:#9ca3af;">(${pct}%)</span>
+                    </div>
+                    <button class="restart-btn" onclick="location.reload()">🔄 Qayta boshlash</button>
+                </div>
+            `;
+        }
 
-    function renderCurrentMistake() {
-      const item = mistakes[currentIdx];
-      questionCounter.textContent = `${currentIdx + 1} / ${TOTAL}`;
-      tenseCategory.textContent = item.category;
-      mistakeSentenceDiv.innerHTML = item.wrongHtml;
-      
-      correctionInput.value = userCorrections[currentIdx] || '';
-      
-      // feedback
-      const status = statuses[currentIdx];
-      feedbackArea.innerHTML = '';
-      feedbackArea.className = 'feedback-msg';
-      if (status === 'correct') {
-        feedbackArea.textContent = '✓ Correct!';
-        feedbackArea.classList.add('correct-fb');
-      } else if (status === 'wrong') {
-        feedbackArea.textContent = `✗ Incorrect. Correct form: "${item.correct}"`;
-        feedbackArea.classList.add('wrong-fb');
-      } else {
-        feedbackArea.textContent = '';
-      }
-      
-      prevBtn.disabled = (currentIdx === 0);
-      nextBtn.disabled = (currentIdx === TOTAL - 1);
-      updateScore();
-    }
-
-    function submitCorrection() {
-      const userAnswer = correctionInput.value;
-      const item = mistakes[currentIdx];
-      userCorrections[currentIdx] = userAnswer;
-      
-      const isCorrect = normalize(userAnswer) === normalize(item.correct);
-      statuses[currentIdx] = isCorrect ? 'correct' : 'wrong';
-      
-      feedbackArea.innerHTML = '';
-      feedbackArea.className = 'feedback-msg';
-      if (isCorrect) {
-        feedbackArea.textContent = '✓ Correct!';
-        feedbackArea.classList.add('correct-fb');
-      } else {
-        feedbackArea.textContent = `✗ Incorrect. Correct form: "${item.correct}"`;
-        feedbackArea.classList.add('wrong-fb');
-      }
-      updateScore();
-    }
-
-    function goToNext() {
-      if (currentIdx < TOTAL - 1) {
-        userCorrections[currentIdx] = correctionInput.value;
-        currentIdx++;
-        renderCurrentMistake();
-      }
-    }
-
-    function goToPrev() {
-      if (currentIdx > 0) {
-        userCorrections[currentIdx] = correctionInput.value;
-        currentIdx--;
-        renderCurrentMistake();
-      }
-    }
-
-    function resetAll() {
-      userCorrections = new Array(TOTAL).fill('');
-      statuses = new Array(TOTAL).fill(null);
-      correctionInput.value = '';
-      feedbackArea.innerHTML = '';
-      feedbackArea.className = 'feedback-msg';
-      renderCurrentMistake();
-    }
-
-    // Tab switching
-    function showRules() {
-      rulesPage.classList.add('active');
-      practicePage.classList.remove('active');
-      rulesTab.classList.add('active');
-      practiceTab.classList.remove('active');
-    }
-
-    function showPractice() {
-      rulesPage.classList.remove('active');
-      practicePage.classList.add('active');
-      rulesTab.classList.remove('active');
-      practiceTab.classList.add('active');
-      renderCurrentMistake();
-    }
-
-    // Event listeners
-    rulesTab.addEventListener('click', showRules);
-    practiceTab.addEventListener('click', showPractice);
-    
-    checkBtn.addEventListener('click', submitCorrection);
-    correctionInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        submitCorrection();
-      }
-    });
-    
-    prevBtn.addEventListener('click', goToPrev);
-    nextBtn.addEventListener('click', goToNext);
-    resetBtn.addEventListener('click', resetAll);
-    
-    correctionInput.addEventListener('input', (e) => {
-      userCorrections[currentIdx] = e.target.value;
-    });
-
-    // Initialize
-    showRules();
-    renderCurrentMistake(); // ready for practice
-  })();
-</script>
+        nextBtn.addEventListener('click', nextQuestion);
+        render();
+    </script>
 </body>
 </html>
